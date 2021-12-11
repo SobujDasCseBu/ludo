@@ -1,0 +1,20 @@
+.container{
+    font-family: "Helvetica", Sans-Serif;
+    /*background-image: url("../images/background-image.jpeg");*/
+    background-color: rgb(60, 88, 82);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+    z-index: -1;
+}
+.menubar{
+    background-color: #ebe0b7;
+    height: 65px;
+    width: 100%;
+    padding: 5px;
+
+}
+.menu_logo{
+  height: 10%;
+}
