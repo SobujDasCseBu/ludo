@@ -1,24 +1,35 @@
 import React from 'react'
-import { Gi3DGlasses } from 'react-icons/gi'
-
-import './Firstpage.css'
+import { HiUserCircle } from "react-icons/hi";
+import { Link} from 'react-router-dom';
+import './Firstpage.css';
+import ConfigIcon from './ConfigIcon';
 function Firstpage() {
   return (
     <div className='container'>
+
+      {/* --------start menu part------- */}
+      
       <div className='menubar'>
         <div className='menu_logo'>
-          <Gi3DGlasses />
+        <ConfigIcon>
+          <HiUserCircle /> 
+          </ConfigIcon>
+          <div className='menu_user'>User Name</div>
         </div>
-        <h3>home</h3>
+        <div className='menu_body'>
+        <h1>
+Escape Reality And Play Games</h1>
+        </div>
+        <div className='menu_home'>
+              <Link to="/" className='menu_login_link'>Home</Link>
+         </div>
+        <div className='menu_login'>
+              <Link to="/login" className='menu_login_link'>login</Link>
+         </div>
       </div>
 
-      <div className='body'>
-        <h3>body</h3>
-      </div>
+ {/* --------End menu part------- */}
 
-      <div className='froter'>
-        <h3>froter</h3>
-      </div>
     </div>
   )
 }
