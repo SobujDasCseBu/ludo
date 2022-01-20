@@ -1,6 +1,9 @@
 .cards{
-  height: 506px;
-  width: 506px;
+  height: 512px;
+  width: 512px;
+  padding: 4px 0 0 4px;
+  cursor: pointer;
+  user-select: none;
   display: grid;
     grid-template-columns: 200px 100px 200px;
     grid-template-rows: 200px 100px 200px;
@@ -9,7 +12,7 @@
     margin-top: 60px;
     left: 0;
     margin: auto;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.372);
     z-index: -10;
     box-sizing: border-box;
     margin-top: 20px;

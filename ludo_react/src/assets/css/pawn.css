@@ -1,6 +1,19 @@
 .pawn {
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   background-color: black;
   border-radius: 50%;
+}
+.pawn.player-0 {
+  background-color: rebeccapurple;
+}
+.pawn.player-1 {
+  background-color: lawngreen;
+}
+.pawn.player-2 {
+  background-color: crimson;
+}
+
+.pawn.player-3 {
+  background-color: dodgerblue;
 }

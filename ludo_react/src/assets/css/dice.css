@@ -6,8 +6,22 @@
   box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
   user-select: none;
   cursor: pointer;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 .dice-outer.clicked {
+  background-color: red;
+}
+.dice-outer.player-0 {
+  background-color: green;
+}
+.dice-outer.player-1 {
+  background-color: blue;
+}
+.dice-outer.player-2 {
+  background-color: yellow;
+}
+.dice-outer.player-3 {
   background-color: red;
 }
 .dice-outer .dice-inner {

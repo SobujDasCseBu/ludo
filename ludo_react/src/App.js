@@ -13,12 +13,11 @@ function App() {
       
       <Router>
       <Firstpage />
-      <Timer />
         <Routes>
-          <Route path="/" exact element={<Home/>} />
+          <Route path="/" exact element={<Main/>} />
           <Route path="/login" element={<SignIn/>} />
           <Route path="/temp" element={<Pawn/>} />
-          <Route path="/main" element={<Main/>} />
+          <Route path="/main" element={<Home/>} />
         </Routes>
       </Router>
      

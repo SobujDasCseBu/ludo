@@ -2,3 +2,18 @@ body {
   margin: 0;
   padding: 0;
 }
+.container-outer {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: brown;
+  padding: 20px;
+}
+.container-outer .player-turn {
+  text-align: center;
+}
+.container-outer .player-turn strong {
+  color: #fff;
+}
+.container.ludo-container {
+  position: relative;
+}
