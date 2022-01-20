@@ -1,0 +1,57 @@
+.dice-outer {
+  height: 50px;
+  width: 50px;
+  background-color: rgba(255, 0, 0, 0.544);
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+  user-select: none;
+  cursor: pointer;
+}
+.dice-outer.clicked {
+  background-color: red;
+}
+.dice-outer .dice-inner {
+  display: grid;
+  height: 50px;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  position: relative;
+}
+
+.dice-outer.dice-length-2 .dice-inner {
+  transform: rotate(45deg);
+  gap: 15px;
+}
+
+.dice-outer.dice-length-3 .dice-inner {
+  transform: rotate(45deg);
+  gap: 10px;
+}
+.dice-outer.dice-length-4 .dice-inner {
+  grid-template-columns: 1fr 1fr;
+  row-gap: 12px;
+}
+.dice-outer.dice-length-5 .dice-inner {
+  grid-template-columns: 1fr 1fr;
+  row-gap: 12px;
+}
+
+.dice-outer.dice-length-5 .dice-inner .dice-item:last-child{
+  position: absolute;
+}
+
+.dice-outer.dice-length-6 .dice-inner {
+  grid-template-columns: 1fr 1fr;
+  
+}
+
+.dice-outer .dice-item {
+  height: 10px;
+  width: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+}
