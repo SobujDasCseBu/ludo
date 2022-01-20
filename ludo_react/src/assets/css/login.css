@@ -1,8 +1,21 @@
+.login_body{
+  width: 400px;
+  height: 600px;
+  margin: 0 auto;
+    margin-top: 30px;
+    text-align: center;
+    border: darkgrey 2px solid;
+    background-color: #606269;
+    z-index: -2;
+    box-sizing: border-box;
+}
+
 .Container {
     width: 280px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 10px;
     text-align: center;
+    
     }
     
     
@@ -87,8 +100,8 @@
     }
     .Preq {
       text-align: right;
-      color: rgb(243, 147, 147);
-      margin-bottom: 0.5rem;
+      color: rgb(41, 37, 37);
+      margin-bottom: 0.1rem;
       font-size: 1.4rem;
     }
     .AFPass {
@@ -105,11 +118,11 @@
     }
     
     .SButton {
-      font-size: 1.7rem;
-      line-height: 1.6rem;
+      font-size: 1.3rem;
+      line-height: 1.2rem;
       font-weight: 600;
-      height: 3.5rem;
-      width: 18rem;
+      height: 3rem;
+      width: 10rem;
       box-sizing: border-box;
       margin: 2.1rem 0px 0px;
       min-width: 0px;
@@ -118,7 +131,7 @@
       text-align: center;
       line-height: inherit;
       text-decoration: none;
-      padding: 8px 10px;
+      padding: 12px 8px;
       border: 1px solid transparent;
       cursor: pointer;
       outline: none;
@@ -130,6 +143,7 @@
       font-family: 'Source Sans Pro', sans-serif;
       letter-spacing: 1.5px;
       box-shadow: 4px -2px #888888;
+      text-align: center;
     }
     .CSpan {
       box-sizing: border-box;

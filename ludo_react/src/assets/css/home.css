@@ -1,5 +1,4 @@
 
-
 .container_home{
    
  background-image: url("../img/image8.jpeg");
@@ -17,8 +16,8 @@
     left: 1rem;
 }
 .start_button{
-    background-color: #fff;
-  color:#242424 ;
+    background-color: transparent;
+  color: #fff;
   padding: 8px 20px;
   border: 1px solid #fff;
   transition: all 0.3s ease-out;
@@ -31,7 +30,7 @@
 -webkit-box-shadow: 28px 8px 70px 21px rgba(28,133,70,0.59);
 -moz-box-shadow: 28px 8px 70px 21px rgba(28,133,70,0.59);
 transition: all 0.3s ease-out;
-  background: transparent;
-  color:#fff ;
+  background: #fff;
+  color:#242424 ;
   transition: 250ms;
   }

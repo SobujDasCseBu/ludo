@@ -14,11 +14,8 @@ export default function SignIn() {
     inputref.current.focus()
   }, [])
   return (
-    <div>
+    <div className='login_body'>
       <div className='Container'>
-        <div>
-          <i class='fas fa-sign-in-alt'></i>
-        </div>
         <div>
           <div className='Header'>LUDO</div>
           <div className='HDesc'>
@@ -57,7 +54,7 @@ export default function SignIn() {
           <div className='HDescs'>
             <div className='CSpan'>
               {' '}
-              <div className='CAngkor'>Sign up</div> in a LUDO
+              <div className='CAngkor'>Sign up</div> 
             </div>
           </div>
         </div>
