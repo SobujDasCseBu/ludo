@@ -9,7 +9,10 @@ function LineOne({ player_number, layout, boxClick, pawnInfows }) {
                 const boxIndex = player_number * 18 + index
                 const isPawnFound = pawnInfows.find((item) => item.id === boxIndex)
                 return (
-                    <div className={`box-${boxIndex}`} onClick={() => boxClick(boxIndex)}>
+                    <div
+                        className={`box-${boxIndex}`}
+                        onClick={() => boxClick(boxIndex)}
+                    >
                         {isPawnFound && isPawnFound.id && <Pawn color={`player-${isPawnFound.player_number}`} />}
                         {boxIndex}
                     </div>
