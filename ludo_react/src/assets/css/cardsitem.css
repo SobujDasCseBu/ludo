@@ -1,83 +1,66 @@
-.firstblog{
-    height: 202px;
-    width:200px;
-    background-color: rgb(240, 12, 12);
-    padding: 0;
-    margin: 0;
-    z-index: -1;
-    position: absolute;
-    box-sizing: border-box;
-  }
-  .secondblog{
-    position: relative;
-    height: 150px;
-    width:150px;
-    background-color: #fff;
-    top: 20px;
-    left: 0;
-    margin: auto;
-  
-    display: grid;
-    grid-template-columns: 40px 40px;
-    grid-template-rows: 40px 40px;
-    grid-gap: 20px;
-    
-    justify-content:center;
-    align-content:center;
-    
-  }
-  .thirdblog{
-    background-color: rgb(240, 12, 12);
-  }
-  
-  
-  
-  
-  .fourthtblog{
-    height: 202px;
-    width:200px;
-    background-color: green;
-    padding: 0;
-    margin: 0;
-    z-index: -1;
-    position: absolute;
-  }
-  .fifthdblog{
-    background-color: green;
-  }
-  
-  
-  
-  .sixthblog{
-    height: 202px;
-    width:200px;
-    background-color: yellow;
-    padding: 0;
-    margin: 0;
-    z-index: -1;
-    position: absolute;
-  }
-  .sevenblog{
-    background-color: yellow;
-  }
-  
-  
-  
-  .eightlog{
-    height: 202px;
-    width:200px;
-    background-color: blue;
-    padding: 0;
-    margin: 0;
-    z-index: -1;
-    position: absolute;
-  }
-  .nineblog{
-    background-color: blue;
-  }
-  
-  .thirdblog, .nineblog, .sevenblog, .fifthdblog {
-    display: grid;
-    justify-items: center;
-    align-items: center;
-  }
+.secondblog {
+  box-sizing: border-box;
+  position: relative;
+  height: 100px;
+  width: 100px;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+  margin: 50px;
+
+  display: grid;
+  grid-template-columns: 25px 25px;
+  grid-template-rows: 25px 25px;
+  grid-gap: 15px;
+
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.secondblog.player-0 .ready-pwans {
+  position: absolute;
+  left: -50px;
+  top: -17px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  display: grid;
+  gap: 5px;
+}
+
+.secondblog.player-1 .ready-pwans {
+  position: absolute;
+  right: -32px;
+  top: -35px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  display: grid;
+  gap: 5px;
+  transform: rotate(90deg);
+  transform-origin: top;
+}
+
+.secondblog.player-2 .ready-pwans {
+  position: absolute;
+  right: -50px;
+  bottom: -18px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  display: grid;
+  gap: 5px;
+  transform: rotate(180deg);
+}
+
+.secondblog.player-3 .ready-pwans {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  display: grid;
+  gap: 5px;
+  left: -48px;
+  top: 120px;
+  transform: rotate(-90deg);
+  transform-origin: right top; 
+}
