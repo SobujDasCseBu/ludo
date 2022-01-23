@@ -2,28 +2,44 @@ import React from 'react'
 import '../assets/css/cardsitem.css'
 import Pawn from '../components/Pawn'
 
-function CardItem({ first_section, third_section, player }) {
-  const { player_number, unriped } = player
+function CardItem({
+  pawns,
+  player_number,
+  readyPawns,
+  setPawnToReady,
+  boxClick
+}) {
 
-  const pawnProps = {
-    color:
-      player_number === 0 ? 'player-0' :
-        player_number === 1 ? 'player-1' :
-          player_number === 2 ? 'player-2' : 'player-3'
-  }
+
+  const [boxIndex, set_boxIndex] = React.useState(player_number === 0 ? 5
+              : player_number === 1 ? 52
+                : player_number === 2 ? 66
+                  : 19) 
 
   return (
-    <div className={`secondblog player-${player_number}`}>
-      <div className="ready-pwans">
-        <Pawn color='player-0' />
-        <Pawn color='player-1' />
-        <Pawn color='player-1' />
-        <Pawn color='player-1' />
-      </div>
-      {unriped > 0 && <Pawn {...pawnProps} />}
-      {unriped > 1 && <Pawn {...pawnProps} />}
-      {unriped > 2 && <Pawn {...pawnProps} />}
-      {unriped > 3 && <Pawn {...pawnProps} />}
+    <div className={`secondblog player-${player_number}`} 
+    >
+      {readyPawns.length > 0 && <div className="ready-pwans">
+        {readyPawns.map((item, index) => (
+          <Pawn
+            key={index}
+            index={boxIndex}
+            color={`player-${item}`}
+            player_number={item}
+            boxClick={boxClick}
+          />
+        ))}
+      </div>}
+      {Array.from({ length: pawns })
+        .map((item, index) => (
+          <Pawn
+            key={index}
+            index={boxIndex}
+            color={`player-${player_number}`}
+            player_number={player_number}
+            setPawnToReady={setPawnToReady}
+          />
+        ))}
     </div>
   )
 }
