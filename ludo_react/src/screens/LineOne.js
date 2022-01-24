@@ -20,12 +20,14 @@ function LineOne({
             key={index}
             className={`box-${boxIndex}`}
           >
-            {isPawnFound && isPawnFound.id && !isPawnInStart &&
+            {isPawnFound && !isPawnInStart &&
               <Pawn
                 index={boxIndex}
                 boxClick={boxClick}
+                player_number={isPawnFound.player_number}
                 color={`player-${isPawnFound.player_number}`}
-              />}
+              />
+            }
             {boxIndex}
           </div>
         )
