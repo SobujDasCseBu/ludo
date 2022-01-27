@@ -5,6 +5,7 @@ function Home() {
     return (
         <div className='container_home'>
             <div className='get_start'>
+                
             <Link to="/main" >
                 <button className='start_button'>Get Start</button>
                 </Link>

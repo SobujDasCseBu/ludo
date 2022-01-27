@@ -28,6 +28,7 @@ const Timer = () => {
   return (
     <div className="app">
       <div className="time">
+       
         {seconds}s
       </div>
       <div className="row">

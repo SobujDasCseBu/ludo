@@ -7,10 +7,11 @@ function CardItem({
   player_number,
   readyPawns,
   setPawnToReady,
-  boxClick
+  boxClick,
+  text
 }) {
 
-
+ 
   const [boxIndex, set_boxIndex] = React.useState(player_number === 0 ? 5
               : player_number === 1 ? 52
                 : player_number === 2 ? 66
@@ -19,6 +20,7 @@ function CardItem({
   return (
     <div className={`secondblog player-${player_number}`} 
     >
+      {/* <p style={{color: "red"}}>P1!</p> */}
       {readyPawns.length > 0 && <div className="ready-pwans">
         {readyPawns.map((item, index) => (
           <Pawn
@@ -29,6 +31,7 @@ function CardItem({
             boxClick={boxClick}
           />
         ))}
+        
       </div>}
       {Array.from({ length: pawns })
         .map((item, index) => (

@@ -28,7 +28,8 @@ function LineOne({
                 color={`player-${isPawnFound.player_number}`}
               />
             }
-            {boxIndex}
+            
+            {/* {boxIndex} */}
           </div>
         )
       })}

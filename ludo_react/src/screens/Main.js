@@ -4,34 +4,38 @@ import '../assets/css/main.css'
 import Dice from '../components/Dice'
 import { getRollDice } from '../functions/utilities'
 function Main() {
-  const [turn, set_turn] = useState(1)
-  const [playerName, set_playerName] = useState('Player 1')
+  const [turn, set_turn] = useState(0)
+  const [playerName, set_playerName] = useState('Player 0')
   const [diceLength, set_diceLength] = useState(1)
   const [diceDisabled, set_diceDisabled] = useState(false)
   // const [turnDisabled, set_turnDisabled] = useState(true)
   const [willCross, set_willCross] = useState(0)
   const [six, set_six] = useState(0)
   const [eatIndex, set_eatIndex] = useState(-1)
+  const [check_player,set_check_player] = useState(0)
   const [runningPawns, set_runningPawns] = useState([
-
     
-    // { id: 19, player_number: 3 },
+    
+     //{ id: 35, player_number: 3 },
     // { id: 19, player_number: 3 },
     // { id: 66, player_number: 0 },
-    // { id: 52, player_number: 1 },
-    // { id: 5, player_number: 0 },
+     //{ id: 50, player_number: 1 },
+     //{ id: 3, player_number: 0 },
     // { id: 5, player_number: 3 },
     //--------------------------
-    // { id: 1, player_number: 0 },
-    { id: 47, player_number: 1 },
-    { id: 14, player_number: 2 },
-    { id: 0, player_number: 2 },
+
+     //{ id: 1, player_number: 0 },
+    // { id: 47, player_number: 1 },
+    // { id: 14, player_number: 2 },
+   // { id: 9, player_number: 2 },
+
+
   ])
   const [pawns, set_pawns] = useState({
-    p0: 2,
-    p1: 3,
+    p0: 4,
+    p1: 4,
     p2: 4,
-    p3: 1,
+    p3: 4,
   })
   const [readyPawns, set_readyPawns] = useState({
     // p0: [0,3],
@@ -55,16 +59,22 @@ function Main() {
     p3: 24
   }
   const ripePath = {
+
+
     p0: [4, 7, 10, 13, 16],
     p1: [46, 45, 44, 43, 4],
     p2: [67, 64, 61, 58, 55],
     p3: [25, 26, 27, 28, 29]
   }
 
-  React.useEffect(() => {
-    console.log('runningPawns: ', runningPawns)
-  }, runningPawns)
+  // React.useEffect(() => {
+  //   console.log('runningPawns: ', runningPawns)
+   
+  // }, runningPawns)
 
+
+
+  //hancPawnClick
   const hancleDiceClick = () => {
     if (diceDisabled) return
     const diceNumber = getRollDice()
@@ -74,23 +84,70 @@ function Main() {
         set_six(0)
         set_turn((turn + 1) % 4)
         set_playerName('Player ' + (turn + 1) % 4)
+        set_diceDisabled(true)
       } else {
         set_six(() => six + 1)
         set_willCross(6)
+        set_diceDisabled(true)
       }
     } else {
-      set_willCross(diceNumber)
+      if(!runningPawns.find((item) => item.player_number===turn && diceNumber !=6)){
+        set_turn((turn + 1) % 4)
+        set_playerName('Player ' + (turn + 1) % 4)
+        // setInterval(() => {
+        //   console.log('Interval triggered');
+        // }, 1000);
+      }
+      else
+      {
+        set_willCross(diceNumber)
+        set_diceDisabled(true)
+      }
+     
     }
-
-    // set_turnDisabled(false)
-    set_diceDisabled(true)
+  
+ 
+  //   }
+  //   else
+    
 
     // if (1) {
 
     // set_turn((turn + 1) % 4)
     // set_playerName('Player ' + (turn + 1) % 4)
     // }
+  
+    // console.log('isPawnInMainPath: ', runningPawns.find(() => p_number === turn))
+   // runningPawns.find((item) => item.id === clickIndex && p_number === turn)
+
   }
+  
+ 
+  // React.useEffect(() => {
+  //   set_check_player(runningPawns);
+   
+  // }, runningPawns)
+  
+  
+
+  // if(!runningPawns.find((item) => item.player_number===turn && willCross != 6)){
+  //   set_turn((turn + 1) % 4)
+  //   set_playerName('Player ' + (turn + 1) % 4)
+  //   set_diceDisabled(false)
+  //   console.log("Sabuj")
+  // }
+  
+  // var check_length= runningPawns.length
+  // for (let i=0; i<= check_length ;i++){
+    
+  //   if(result.player_number===turn){
+  //     console.log("player_number",result.player_number)
+  //   }
+  //   else{
+  //     console.log("No player yet");
+  //   }
+  // }
+  // console.log("value2",check_length)
 
   const handleBoxClick = (clickIndex, p_number) => {
     console.log('clickIndex: ', clickIndex)
@@ -104,7 +161,7 @@ function Main() {
     
     console.log('isPawnInMainPath: ', isPawnInMainPath)
     if (isPawnInMainPath) {
-      let _dLength = 6 || diceLength
+      let _dLength = diceLength
       let pawnIndex = mainPath.findIndex((item) => item === clickIndex)
       
       removeFromReadyPawns(clickIndex)

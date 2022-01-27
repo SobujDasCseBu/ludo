@@ -13,6 +13,7 @@ function Cards({
 }) {
   return (
     <div className='cards'>
+      
       <CardItem
         player_number={3}
         pawns={pawns.p3}
