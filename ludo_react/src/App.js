@@ -6,13 +6,13 @@ import Main from './screens/Main';
 // import Pawn from './components/Pawn';
 // import Timer from './screens/Timer';
 // import Dice from './components/Dice';
-// import Firstpage from './components/Firstpage';
+ import Firstpage from './components/Firstpage';
 function App() {
   return (
     <div className='App'>
       
       <Router>
-      {/* <Firstpage /> */}
+      <Firstpage />
         <Routes>
           <Route path="/" exact element={<Main/>} />
           <Route path="/login" element={<SignIn/>} />

@@ -27,14 +27,14 @@ function Main() {
      //{ id: 1, player_number: 0 },
     // { id: 47, player_number: 1 },
     // { id: 14, player_number: 2 },
-   { id: 30, player_number: 2 },
+  // { id: 30, player_number: 2 },
 
 
   ])
   const [pawns, set_pawns] = useState({
     p0: 4,
     p1: 4,
-    p2: 3,
+    p2: 4,
     p3: 4,
   })
   const [readyPawns, set_readyPawns] = useState({
@@ -48,7 +48,7 @@ function Main() {
     p3: [],
   })
 
-  const mainPath = [0, 1, 2, 5, 8, 11, 14, 17, 36, 37, 38, 39, 40, 41, 47, 53, 52, 51, 50, 49, 48, 56, 59, 62, 65, 68, 71, 70, 69, 66, 63, 60, 57, 54, 35, 34, 33, 32, 31, 24, 18, 19, 20, 21, 22, 23, 15, 12, 9, 6, 3]
+  const mainPath = [0, 1, 2, 5, 8, 11, 14, 17, 36, 37, 38, 39, 40, 41, 47, 53, 52, 51, 50, 49, 48, 56, 59, 62, 65, 68, 71, 70, 69, 66, 63, 60, 57, 54, 35, 34, 33, 32, 31,30, 24, 18, 19, 20, 21, 22, 23, 15, 12, 9, 6, 3]
   const starPath = [5, 39, 52, 65, 32, 66, 19, 6]
   const startPath = [5, 52, 66, 19]
   const startPathObj = {p0: 5, p1: 52, p2: 66, p3: 19}
@@ -161,7 +161,7 @@ function Main() {
     
     console.log('isPawnInMainPath: ', isPawnInMainPath)
     if (isPawnInMainPath) {
-      let _dLength = 3 || diceLength
+      let _dLength = diceLength
       let pawnIndex = mainPath.findIndex((item) => item === clickIndex)
       
       handleReadyPawns(clickIndex, 'remove')
@@ -201,13 +201,18 @@ function Main() {
           ...runningPawns.filter((item, index) => index !== indexForRemove),
           { ...isPawnInMainPath, id: mainPathIndex }
         ])
-        handleReadyPawns(pawnIndex, 'add')
+
+
+       // handleReadyPawns(pawnIndex, 'add')
+
+
         if (!_dLength) {
           console.log('diceDisabled: ', diceDisabled)
           set_turn((turn + 1) % 4)
           set_playerName('Player ' + (turn + 1) % 4)
           set_diceDisabled(false)
           clearInterval(mainPathInterval)
+         // console.log("add")
         }
       }, 300)
     }
@@ -243,16 +248,17 @@ function Main() {
         ...readyPawns,
         ['p' + p_index]: [...filtered]
       })
-    } else if (action === 'add') {
+    }
+     else if (action === 'add') {
+      console.log("sujan")
       set_readyPawns({
         ...readyPawns,
         ['p' + p_index]: [...readyPawns['p' + p_index], turn]
       })
     }
-    
+
     
   }
-
   
   const setPawnToReady = (p_number) => {
     if (!diceDisabled) return

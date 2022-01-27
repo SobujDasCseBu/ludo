@@ -29,7 +29,7 @@ function LineOne({
               />
             }
             
-            {boxIndex}
+            {/* {boxIndex} */}
           </div>
         )
       })}
