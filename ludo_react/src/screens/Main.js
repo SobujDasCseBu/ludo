@@ -27,14 +27,14 @@ function Main() {
      //{ id: 1, player_number: 0 },
     // { id: 47, player_number: 1 },
     // { id: 14, player_number: 2 },
-   // { id: 9, player_number: 2 },
+   { id: 30, player_number: 2 },
 
 
   ])
   const [pawns, set_pawns] = useState({
     p0: 4,
     p1: 4,
-    p2: 4,
+    p2: 3,
     p3: 4,
   })
   const [readyPawns, set_readyPawns] = useState({
@@ -161,10 +161,10 @@ function Main() {
     
     console.log('isPawnInMainPath: ', isPawnInMainPath)
     if (isPawnInMainPath) {
-      let _dLength = diceLength
+      let _dLength = 3 || diceLength
       let pawnIndex = mainPath.findIndex((item) => item === clickIndex)
       
-      removeFromReadyPawns(clickIndex)
+      handleReadyPawns(clickIndex, 'remove')
 
       let divertTo = null
       
@@ -201,6 +201,7 @@ function Main() {
           ...runningPawns.filter((item, index) => index !== indexForRemove),
           { ...isPawnInMainPath, id: mainPathIndex }
         ])
+        handleReadyPawns(pawnIndex, 'add')
         if (!_dLength) {
           console.log('diceDisabled: ', diceDisabled)
           set_turn((turn + 1) % 4)
@@ -225,7 +226,7 @@ function Main() {
     else return null
   }
 
-  const removeFromReadyPawns = (pawnIndex) => {
+  const handleReadyPawns = (pawnIndex, action) => {
     console.log('pawnIndex: ', pawnIndex)
     const p_index =
       pawnIndex === 5 ? 0
@@ -234,16 +235,25 @@ function Main() {
             : pawnIndex === 19 ? 3
               : -1
     if (p_index === -1) return
-    const _index = readyPawns['p' + p_index].findIndex((item) => item === p_index)
-    const filtered = readyPawns['p' + p_index].filter((item, index) => index !== _index)
-    console.log('filtered: ', filtered)
-    set_readyPawns({
-      ...readyPawns,
-      ['p' + p_index]: [...filtered]
-    })
+    if (action === 'remove') {
+      const _index = readyPawns['p' + p_index].findIndex((item) => item === p_index)
+      const filtered = readyPawns['p' + p_index].filter((item, index) => index !== _index)
+      console.log('filtered: ', filtered)
+      set_readyPawns({
+        ...readyPawns,
+        ['p' + p_index]: [...filtered]
+      })
+    } else if (action === 'add') {
+      set_readyPawns({
+        ...readyPawns,
+        ['p' + p_index]: [...readyPawns['p' + p_index], turn]
+      })
+    }
+    
     
   }
 
+  
   const setPawnToReady = (p_number) => {
     if (!diceDisabled) return
     if (diceLength === 6 && turn === p_number) {
