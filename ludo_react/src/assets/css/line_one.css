@@ -29,6 +29,7 @@
   display: grid;
   justify-items: center;
   align-items: center;
+  border-radius: 5px;
 }
 
 .box-4, 
