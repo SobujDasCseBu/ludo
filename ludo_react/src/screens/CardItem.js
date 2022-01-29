@@ -8,7 +8,7 @@ function CardItem({
   readyPawns,
   setPawnToReady,
   boxClick,
-  text
+  playerName
 }) {
 
  
@@ -20,7 +20,7 @@ function CardItem({
   return (
     <div className={`secondblog player-${player_number}`} 
     >
-      {/* <p style={{color: "red"}}>P1!</p> */}
+      <span className={`player player-${player_number}`}><h4>{playerName}</h4></span>
       {readyPawns.length > 0 && <div className="ready-pwans">
         {readyPawns.map((item, index) => (
           <Pawn

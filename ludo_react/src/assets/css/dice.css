@@ -13,16 +13,16 @@
   background-color: red;
 }
 .dice-outer.player-0 {
-  background-color: green;
+  background-color: rgb(57, 126, 57);
 }
 .dice-outer.player-1 {
-  background-color: blue;
+  background-color: rgb(67, 67, 250);
 }
 .dice-outer.player-2 {
-  background-color: yellow;
+  background-color: rgb(77, 55, 55);
 }
 .dice-outer.player-3 {
-  background-color: red;
+  background-color: rgb(255, 90, 90);
 }
 .dice-outer .dice-inner {
   display: grid;

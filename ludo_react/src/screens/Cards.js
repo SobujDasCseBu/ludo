@@ -9,17 +9,18 @@ function Cards({
   pawns,
   readyPawns,
   setPawnToReady,
-  startPath
+  startPath,
+  players
 }) {
   return (
     <div className='cards'>
-      
       <CardItem
         player_number={3}
         pawns={pawns.p3}
         readyPawns={readyPawns.p3}
         setPawnToReady={setPawnToReady}
         boxClick={boxClick}
+        playerName={players[3]}
       />
       <LineOne
         player_number={0}
@@ -35,6 +36,7 @@ function Cards({
           readyPawns={readyPawns.p0}
           setPawnToReady={setPawnToReady}
           boxClick={boxClick}
+          playerName={players[0]}
         />
       </div>
       <div>
@@ -65,6 +67,7 @@ function Cards({
           readyPawns={readyPawns.p2}
           setPawnToReady={setPawnToReady}
           boxClick={boxClick}
+          playerName={players[2]}
         />
       </div>
       <div>
@@ -83,6 +86,7 @@ function Cards({
           readyPawns={readyPawns.p1}
           setPawnToReady={setPawnToReady}
           boxClick={boxClick}
+          playerName={players[1]}
         />
       </div>
     </div>
