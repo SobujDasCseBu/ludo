@@ -82,8 +82,8 @@ const SignUpForm = ({
         />
       </form>
       <p>
-        Aleady have an account? <br />
-        <Link to="/login" >login</Link>
+        Aleady have an account? <br /> <br />
+        <h3><Link to="/login" >login</Link></h3>
       </p>
     </div>
   );
