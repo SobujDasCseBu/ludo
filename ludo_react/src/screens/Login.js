@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useRef } from 'react'
+import { Link} from 'react-router-dom';
 import '../assets/css/login.css'
 
 
@@ -54,7 +55,11 @@ export default function SignIn() {
           <div className='HDescs'>
             <div className='CSpan'>
               {' '}
-              <div className='CAngkor'>Sign up</div> 
+
+
+              {/* <div className='CAngkor'>Sign up</div>  */}
+
+              <Link to="/signup" className='CAngkor'>Sign up</Link>
             </div>
           </div>
         </div>

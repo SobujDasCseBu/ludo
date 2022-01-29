@@ -21,7 +21,7 @@ function Firstpage() {
 Escape Reality And Play Games</h1>
         </div>
         <div className='menu_home'>
-              <Link to="/main" className='menu_login_link'>Home</Link>
+              <Link to="/" className='menu_login_link'>Home</Link>
          </div>
         <div className='menu_login'>
               <Link to="/login" className='menu_login_link'>login</Link>
