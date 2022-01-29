@@ -5,7 +5,7 @@ import Dice from '../components/Dice'
 import { getRollDice } from '../functions/utilities'
 function Main() {
   const [turn, set_turn] = useState(0)
-  const [playerName, set_playerName] = useState('Player 0')
+  const [players, set_players] = useState(['Sabuj', 'Mumu', 'Sujan', 'Rahat'])
   const [diceLength, set_diceLength] = useState(1)
   const [diceDisabled, set_diceDisabled] = useState(false)
   // const [turnDisabled, set_turnDisabled] = useState(true)
@@ -67,15 +67,8 @@ function Main() {
     p3: [25, 26, 27, 28, 29]
   }
 
-  // React.useEffect(() => {
-  //   console.log('runningPawns: ', runningPawns)
-   
-  // }, runningPawns)
-
-
-
-  //hancPawnClick
-  const hancleDiceClick = () => {
+  
+  const handleDiceClick = () => {
     if (diceDisabled) return
     const diceNumber = getRollDice()
     set_diceLength(diceNumber)
@@ -83,7 +76,6 @@ function Main() {
       if (six === 2) {
         set_six(0)
         set_turn((turn + 1) % 4)
-        set_playerName('Player ' + (turn + 1) % 4)
         set_diceDisabled(true)
       } else {
         set_six(() => six + 1)
@@ -91,12 +83,8 @@ function Main() {
         set_diceDisabled(true)
       }
     } else {
-      if(!runningPawns.find((item) => item.player_number===turn && diceNumber !=6)){
+      if(!runningPawns.find((item) => item.player_number===turn && diceNumber !==6)){
         set_turn((turn + 1) % 4)
-        set_playerName('Player ' + (turn + 1) % 4)
-        // setInterval(() => {
-        //   console.log('Interval triggered');
-        // }, 1000);
       }
       else
       {
@@ -106,48 +94,9 @@ function Main() {
      
     }
   
- 
-  //   }
-  //   else
-    
-
-    // if (1) {
-
-    // set_turn((turn + 1) % 4)
-    // set_playerName('Player ' + (turn + 1) % 4)
-    // }
-  
-    // console.log('isPawnInMainPath: ', runningPawns.find(() => p_number === turn))
-   // runningPawns.find((item) => item.id === clickIndex && p_number === turn)
-
   }
   
  
-  // React.useEffect(() => {
-  //   set_check_player(runningPawns);
-   
-  // }, runningPawns)
-  
-  
-
-  // if(!runningPawns.find((item) => item.player_number===turn && willCross != 6)){
-  //   set_turn((turn + 1) % 4)
-  //   set_playerName('Player ' + (turn + 1) % 4)
-  //   set_diceDisabled(false)
-  //   console.log("Sabuj")
-  // }
-  
-  // var check_length= runningPawns.length
-  // for (let i=0; i<= check_length ;i++){
-    
-  //   if(result.player_number===turn){
-  //     console.log("player_number",result.player_number)
-  //   }
-  //   else{
-  //     console.log("No player yet");
-  //   }
-  // }
-  // console.log("value2",check_length)
 
   const handleBoxClick = (clickIndex, p_number) => {
     console.log('clickIndex: ', clickIndex)
@@ -209,7 +158,6 @@ function Main() {
         if (!_dLength) {
           console.log('diceDisabled: ', diceDisabled)
           set_turn((turn + 1) % 4)
-          set_playerName('Player ' + (turn + 1) % 4)
           set_diceDisabled(false)
           clearInterval(mainPathInterval)
          // console.log("add")
@@ -272,9 +220,10 @@ function Main() {
 
   return (
     <div className="container-outer">
+      <div className="hint"><p>Click The dice</p></div>
       <div className="player-turn">
-        <strong>{playerName}</strong>
-        <Dice player_number={turn} hancleDiceClick={hancleDiceClick} diceLength={diceLength} />
+        <strong>{players[turn]}</strong>
+        <Dice player_number={turn} handleDiceClick={handleDiceClick} diceLength={diceLength} />
       </div>
       <div className='container ludo-container'>
         <Cards
@@ -284,6 +233,7 @@ function Main() {
           readyPawns={readyPawns}
           setPawnToReady={setPawnToReady}
           startPath={startPath}
+          players={players}
         />
 
       </div>

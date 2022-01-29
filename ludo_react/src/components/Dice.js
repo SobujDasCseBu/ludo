@@ -2,13 +2,10 @@ import React from 'react'
 import '../assets/css/dice.css'
 
 
-const Dice = ({player_number, hancleDiceClick, diceLength}) => {
-  React.useEffect(() => {
-      // console.log(getRollDice())
-    
-  }, [])
+const Dice = ({ player_number, handleDiceClick, diceLength }) => {
+  
   return (
-    <div className={`dice-outer clicked dice-length-${diceLength} player-${player_number}`} onClick={hancleDiceClick}>
+    <div className={`dice-outer clicked dice-length-${diceLength} player-${player_number}`} onClick={handleDiceClick}>
       <div className="dice-inner">
       {
         Array.from({ length: diceLength }).map((item, index) => (

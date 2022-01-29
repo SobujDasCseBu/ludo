@@ -38,7 +38,7 @@
 .box-10, 
 .box-13, 
 .box-16 {
-  background-color: green !important;
+  background-color: rgb(57, 126, 57) !important;
 }
 
 .box-19, 
@@ -47,7 +47,7 @@
 .box-27, 
 .box-28, 
 .box-29 {
-  background-color: red !important;
+  background-color: rgb(255, 90, 90) !important;
 }
 
 .box-66, 
@@ -56,7 +56,7 @@
 .box-61, 
 .box-58, 
 .box-55{
-  background-color: yellow !important;
+  background-color: rgb(77, 55, 55) !important;
 }
 
 
@@ -66,5 +66,5 @@
 .box-45, 
 .box-46, 
 .box-52 {
-  background-color: blue !important;
+  background-color: rgb(67, 67, 250) !important;
 }
