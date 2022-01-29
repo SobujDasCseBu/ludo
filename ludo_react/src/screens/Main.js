@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cards from './Cards'
 import '../assets/css/main.css'
 import Dice from '../components/Dice'
 import { getRollDice } from '../functions/utilities'
 function Main() {
   const [turn, set_turn] = useState(0)
-  const [players, set_players] = useState(['Sabuj', 'Mumu', 'Sujan', 'Rahat'])
+  const [players, set_players] = useState(['Sabuj', 'Mumu', 'Sujan', 'Avijit'])
   const [diceLength, set_diceLength] = useState(1)
   const [diceDisabled, set_diceDisabled] = useState(false)
-  // const [turnDisabled, set_turnDisabled] = useState(true)
+  const [hintMessage, set_hintMessage] = useState('Click the dice')
   const [willCross, set_willCross] = useState(0)
   const [six, set_six] = useState(0)
   const [eatIndex, set_eatIndex] = useState(-1)
@@ -20,7 +20,7 @@ function Main() {
     // { id: 19, player_number: 3 },
     // { id: 66, player_number: 0 },
      //{ id: 50, player_number: 1 },
-     //{ id: 3, player_number: 0 },
+    //  { id: 0, player_number: 3 },
     // { id: 5, player_number: 3 },
     //--------------------------
 
@@ -38,10 +38,6 @@ function Main() {
     p3: 4,
   })
   const [readyPawns, set_readyPawns] = useState({
-    // p0: [0,3],
-    // p1: [1],
-    // p2: [0],
-    // p3: [3,3],
     p0: [],
     p1: [],
     p2: [],
@@ -59,13 +55,16 @@ function Main() {
     p3: 24
   }
   const ripePath = {
-
-
     p0: [4, 7, 10, 13, 16],
     p1: [46, 45, 44, 43, 4],
     p2: [67, 64, 61, 58, 55],
     p3: [25, 26, 27, 28, 29]
   }
+
+  useEffect(() => {
+    console.log('readyPawns: ', readyPawns)
+    console.log('runningPawns: ', runningPawns)
+  }, [readyPawns, runningPawns])
 
   
   const handleDiceClick = () => {
@@ -75,23 +74,24 @@ function Main() {
     if (diceNumber === 6) {
       if (six === 2) {
         set_six(0)
-        set_turn((turn + 1) % 4)
+        // set_turn((turn + 1) % 4)
         set_diceDisabled(true)
+        set_hintMessage('Click the pawns')
       } else {
         set_six(() => six + 1)
         set_willCross(6)
         set_diceDisabled(true)
+        set_hintMessage('Click the pawns')
       }
     } else {
-      if(!runningPawns.find((item) => item.player_number===turn && diceNumber !==6)){
+      if(!runningPawns.find((item) => item.player_number===turn && diceNumber !==6)) {
         set_turn((turn + 1) % 4)
-      }
-      else
-      {
+      } else {
         set_willCross(diceNumber)
         set_diceDisabled(true)
+        set_hintMessage('Click the pawns')
       }
-     
+      
     }
   
   }
@@ -135,6 +135,7 @@ function Main() {
             set_runningPawns(runningPawns.filter((item, index) => index !== indexForRemove))
             // // clearInterval
             set_diceDisabled(false)
+            set_hintMessage('Click the dice')
             clearInterval(mainPathInterval)
             return
           }  
@@ -144,20 +145,19 @@ function Main() {
           pawnIndex = 0
           mainPathIndex = ripePath[divertTo][pawnIndex]
         }
-        console.log('pawnIndex: ', pawnIndex)
+        console.log('interval pawnIndex: ', pawnIndex)
         const indexForRemove = runningPawns.findIndex((item) => item.id === clickIndex && item.player_number === p_number)
         set_runningPawns([
           ...runningPawns.filter((item, index) => index !== indexForRemove),
           { ...isPawnInMainPath, id: mainPathIndex }
         ])
-
-
-       // handleReadyPawns(pawnIndex, 'add')
-
-
+        
+        handleReadyPawns(mainPathIndex, 'add')
+        
         if (!_dLength) {
           console.log('diceDisabled: ', diceDisabled)
           set_turn((turn + 1) % 4)
+          set_hintMessage('Click the dice')
           set_diceDisabled(false)
           clearInterval(mainPathInterval)
          // console.log("add")
@@ -179,14 +179,14 @@ function Main() {
     else return null
   }
 
-  const handleReadyPawns = (pawnIndex, action) => {
-    console.log('pawnIndex: ', pawnIndex)
+  const handleReadyPawns = (mainPathIndex, action) => {
     const p_index =
-      pawnIndex === 5 ? 0
-        : pawnIndex === 52 ? 1
-          : pawnIndex === 66 ? 2
-            : pawnIndex === 19 ? 3
+      mainPathIndex === 5 ? 0
+        : mainPathIndex === 52 ? 1
+          : mainPathIndex === 66 ? 2
+            : mainPathIndex === 19 ? 3
               : -1
+    // console.log('handleReadyPawns p_index: ', p_index)
     if (p_index === -1) return
     if (action === 'remove') {
       const _index = readyPawns['p' + p_index].findIndex((item) => item === p_index)
@@ -196,8 +196,7 @@ function Main() {
         ...readyPawns,
         ['p' + p_index]: [...filtered]
       })
-    }
-     else if (action === 'add') {
+    } else if (action === 'add') {
       console.log("sujan")
       set_readyPawns({
         ...readyPawns,
@@ -215,14 +214,15 @@ function Main() {
       set_readyPawns({ ...readyPawns, [`p${p_number}`]: [...readyPawns[`p${p_number}`], p_number] })
       set_runningPawns([...runningPawns, {id: startPathObj[`p${p_number}`], player_number: p_number}])
       set_diceDisabled(false)
+      set_hintMessage('Click the dice')
     }
   }
 
   return (
     <div className="container-outer">
-      <div className="hint"><p>Click The dice</p></div>
+      <div className="hint" style={{ textAlign: 'center' }}><p>{ hintMessage }</p></div>
       <div className="player-turn">
-        <strong>{players[turn]}</strong>
+        <strong>{players[turn]}'s turn</strong>
         <Dice player_number={turn} handleDiceClick={handleDiceClick} diceLength={diceLength} />
       </div>
       <div className='container ludo-container'>
