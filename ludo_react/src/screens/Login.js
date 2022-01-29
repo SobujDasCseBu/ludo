@@ -50,8 +50,8 @@ export default function SignIn() {
             }}
           />
           <div className='AFPass'>Forgot Password?</div>
-          <div className='SButton'>SIGN IN</div>
-          <div className='HDescp'>Don't have an account?</div>
+          <div className='SButton'>Sign In</div>
+          <p className='p_tag'>Don't have an account?</p>
           <div className='HDescs'>
             <div className='CSpan'>
               {' '}
