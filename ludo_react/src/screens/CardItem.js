@@ -10,16 +10,14 @@ function CardItem({
   boxClick,
   playerName
 }) {
-
- 
+  
   const [boxIndex, set_boxIndex] = React.useState(player_number === 0 ? 5
               : player_number === 1 ? 52
                 : player_number === 2 ? 66
                   : 19) 
 
   return (
-    <div className={`secondblog player-${player_number}`} 
-    >
+    <div className={`secondblog player-${player_number}`} >
       <span className={`player player-${player_number}`}><h4>{playerName}</h4></span>
       {readyPawns.length > 0 && <div className="ready-pwans">
         {readyPawns.map((item, index) => (

@@ -16,18 +16,18 @@ function Main() {
   const [runningPawns, set_runningPawns] = useState([
     
     
-     //{ id: 35, player_number: 3 },
-    // { id: 19, player_number: 3 },
-    // { id: 66, player_number: 0 },
-     //{ id: 50, player_number: 1 },
-    //  { id: 0, player_number: 3 },
+    //{ id: 35, player_number: 3 },
+    //{ id: 19, player_number: 3 },
+    //{ id: 66, player_number: 0 },
+    //{ id: 50, player_number: 1 },
+    //{ id: 0, player_number: 3 },
     // { id: 5, player_number: 3 },
     //--------------------------
 
-     //{ id: 1, player_number: 0 },
-    // { id: 47, player_number: 1 },
-    // { id: 14, player_number: 2 },
-  // { id: 30, player_number: 2 },
+    //{ id: 1, player_number: 0 },
+    //{ id: 47, player_number: 1 },
+    //{ id: 14, player_number: 2 },
+    //{ id: 30, player_number: 2 },
 
 
   ])
@@ -62,8 +62,8 @@ function Main() {
   }
 
   useEffect(() => {
-    console.log('readyPawns: ', readyPawns)
-    console.log('runningPawns: ', runningPawns)
+    // console.log('sm readyPawns: ', readyPawns)
+    // console.log('sm runningPawns: ', runningPawns)
   }, [readyPawns, runningPawns])
 
   
@@ -102,6 +102,7 @@ function Main() {
     console.log('clickIndex: ', clickIndex)
     // console.log('turnDisabled: ', turnDisabled)
     console.log('p_number, turn: ', p_number, turn)
+    // return
     if (!diceDisabled) return
     if (p_number !== turn) return
 
@@ -113,7 +114,7 @@ function Main() {
       let _dLength = diceLength
       let pawnIndex = mainPath.findIndex((item) => item === clickIndex)
       
-      handleReadyPawns(clickIndex, 'remove')
+      // handleReadyPawns(clickIndex, 'remove')
 
       let divertTo = null
       
@@ -129,7 +130,7 @@ function Main() {
             // // remove pawn from board
             // console.log('pawnIndex,ripePath[divertTo].length: ', pawnIndex, ripePath[divertTo].length)
             // console.log('runningPawns: ', runningPawns)
-            const indexForRemove = runningPawns.findIndex((item) => item.id === ripePath[divertTo][pawnIndex - 1])
+            const indexForRemove = runningPawns.findIndex((item) => item.id === ripePath[divertTo][pawnIndex - 1] && item.player_number === turn)
             console.log('indexForRemove: ', ripePath[divertTo][pawnIndex - 1])
             console.log('ripePath[divertTo][pawnIndex - 1]: ', ripePath[divertTo][pawnIndex - 1])
             set_runningPawns(runningPawns.filter((item, index) => index !== indexForRemove))
@@ -145,17 +146,21 @@ function Main() {
           pawnIndex = 0
           mainPathIndex = ripePath[divertTo][pawnIndex]
         }
-        console.log('interval pawnIndex: ', pawnIndex)
+        console.log('sm runningPawns: ', runningPawns)
         const indexForRemove = runningPawns.findIndex((item) => item.id === clickIndex && item.player_number === p_number)
+        // console.log('sm itemForRemove: ', indexForRemove)
         set_runningPawns([
           ...runningPawns.filter((item, index) => index !== indexForRemove),
-          { ...isPawnInMainPath, id: mainPathIndex }
+          { player_number: turn, id: mainPathIndex }
         ])
         
-        handleReadyPawns(mainPathIndex, 'add')
+        
+        
+          addToReadyPawns(mainPathIndex)
+          removeFromReadyPawns(mainPathIndex)
         
         if (!_dLength) {
-          console.log('diceDisabled: ', diceDisabled)
+          // console.log('diceDisabled: ', diceDisabled)
           set_turn((turn + 1) % 4)
           set_hintMessage('Click the dice')
           set_diceDisabled(false)
@@ -179,32 +184,39 @@ function Main() {
     else return null
   }
 
-  const handleReadyPawns = (mainPathIndex, action) => {
+
+  const addToReadyPawns = (mainPathIndex) => {
     const p_index =
       mainPathIndex === 5 ? 0
         : mainPathIndex === 52 ? 1
           : mainPathIndex === 66 ? 2
             : mainPathIndex === 19 ? 3
               : -1
-    // console.log('handleReadyPawns p_index: ', p_index)
     if (p_index === -1) return
-    if (action === 'remove') {
-      const _index = readyPawns['p' + p_index].findIndex((item) => item === p_index)
-      const filtered = readyPawns['p' + p_index].filter((item, index) => index !== _index)
-      console.log('filtered: ', filtered)
-      set_readyPawns({
-        ...readyPawns,
-        ['p' + p_index]: [...filtered]
-      })
-    } else if (action === 'add') {
-      console.log("sujan")
-      set_readyPawns({
-        ...readyPawns,
-        ['p' + p_index]: [...readyPawns['p' + p_index], turn]
-      })
-    }
+    set_readyPawns({
+      ...readyPawns,
+      ['p' + p_index]: [...readyPawns['p' + p_index], turn]
+    })
+  }
 
+  const removeFromReadyPawns = (mainPathIndex) => {
+    const p_index =
+      mainPathIndex === 8 ? 0
+        : mainPathIndex === 51 ? 1
+          : mainPathIndex === 63 ? 2
+            : mainPathIndex === 20 ? 3
+              : -1
     
+    // console.log('sm removeFromReadyPawns p_index: ', p_index)
+    if (p_index === -1) return
+    const _index = readyPawns['p' + p_index].findIndex((item) => item === turn)
+    // console.log('sm removeFromReadyPawns _index: ', _index)
+    const filtered = readyPawns['p' + p_index].filter((item, index) => index !== _index)
+    // console.log('sm removeFromReadyPawns filtered: ', filtered)
+    set_readyPawns({
+      ...readyPawns,
+      ['p' + p_index]: [...filtered]
+    })
   }
   
   const setPawnToReady = (p_number) => {
