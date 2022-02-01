@@ -36,6 +36,8 @@ const authUser = asyncHandler(async (req, res) => {
   console.log('result: ', result[0].id)
   const token = createJWTToken(result[0].id)
   console.log('token: ', token)
+
+  res.status(200).json({code: 200, message: 'Logged in successfully', token})
   
 })
 
