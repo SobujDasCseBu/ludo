@@ -21,7 +21,8 @@ function Main() {
     //{ id: 66, player_number: 0 },
     //{ id: 50, player_number: 1 },
     //{ id: 0, player_number: 3 },
-    // { id: 5, player_number: 3 },
+    // { id: 47, player_number: 1 },
+    // { id: 4, player_number: 0 },
     //--------------------------
 
     //{ id: 1, player_number: 0 },
@@ -107,9 +108,9 @@ function Main() {
     if (p_number !== turn) return
 
     const mainPathLength = mainPath.length
-    const isPawnInMainPath = runningPawns.find((item) => item.id === clickIndex && p_number === turn)
+    const isPawnInMainPath = mainPath.find((item) => item === clickIndex)
     
-    console.log('isPawnInMainPath: ', isPawnInMainPath)
+    console.log('sm isPawnInMainPath: ', isPawnInMainPath)
     if (isPawnInMainPath) {
       let _dLength = diceLength
       let pawnIndex = mainPath.findIndex((item) => item === clickIndex)
@@ -156,8 +157,8 @@ function Main() {
         
         
         
-          addToReadyPawns(mainPathIndex)
-          removeFromReadyPawns(mainPathIndex)
+        addToReadyPawns(mainPathIndex)
+        removeFromReadyPawns(mainPathIndex)
         
         if (!_dLength) {
           // console.log('diceDisabled: ', diceDisabled)
@@ -168,6 +169,16 @@ function Main() {
          // console.log("add")
         }
       }, 300)
+    } else {
+      const ripePathIndex = ripePath['p' + turn].findIndex((item) => item === clickIndex)
+      console.log('sm ripePathIndex: ', ripePathIndex)
+      const _dLength = diceLength
+      console.log('sm ripePath[\'p\' + turn].length - ripePathIndex - 1: ', ripePath['p' + turn].length - ripePathIndex - 1)
+      console.log('sm _dLength: ', _dLength)
+      
+      // set_turn((turn + 1) % 4)
+      // set_hintMessage('Click the dice')
+      // set_diceDisabled(false)
     }
 
     

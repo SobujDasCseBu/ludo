@@ -1,8 +1,10 @@
 import mysql from 'mysql'
 
-var con = mysql.createConnection({
+const conn = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
   database: "ludo"
 });
+ 
+export { conn } 

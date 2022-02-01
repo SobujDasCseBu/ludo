@@ -1,12 +1,18 @@
-const express =  require('express')
-const path  = require('path')
-const dotenv = require('dotenv')
+import  express from  'express'
+import  path  from  'path'
+import  dotenv from  'dotenv'
+import  { registerUser, authUser } from  './controllers/userControllers.js'
 
 dotenv.config()
 
 const app = express()
+const router = express.Router()
 
 app.use(express.json())
+
+// router.route('/api/users').post(registerUser)
+// router.route('/api/users/login').post(authUser)
+app.post('/api/users', registerUser)
 
 
 // for heroku publish
@@ -18,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
   )
 } else {
   app.get('/', (req, res) => {
-    res.send('API IS RUNNING')
+    res.send('API IS RUNNING in port 3000')
   })
 }
 
