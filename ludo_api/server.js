@@ -10,10 +10,8 @@ const router = express.Router()
 
 app.use(express.json())
 
-// router.route('/api/users').post(registerUser)
-// router.route('/api/users/login').post(authUser)
 app.post('/api/users', registerUser)
-
+app.post('/api/users/login', authUser)
 
 // for heroku publish
 if (process.env.NODE_ENV === 'production') {
