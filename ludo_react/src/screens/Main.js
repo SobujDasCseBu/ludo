@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Cards from './Cards'
 import '../assets/css/main.css'
 import Dice from '../components/Dice'
 import { getRollDice } from '../functions/utilities'
+import { validateUser } from '../functions/config'
+import axios from '../functions/axios'
 function Main() {
+  const navigate = useNavigate()
   const [turn, set_turn] = useState(0)
   const [players, set_players] = useState(['Sabuj', 'Mumu', 'Sujan', 'Avijit'])
   const [diceLength, set_diceLength] = useState(1)
@@ -63,10 +67,16 @@ function Main() {
   }
 
   useEffect(() => {
-    // console.log('sm readyPawns: ', readyPawns)
-    // console.log('sm runningPawns: ', runningPawns)
-  }, [readyPawns, runningPawns])
+    checkValidation()
+  }, [])
 
+  const checkValidation = async () => {
+    const isValidated = await validateUser()
+    // console.log('isValidated: ', isValidated)
+    if (!isValidated) {
+      navigate('/login')
+    }
+  }
   
   const handleDiceClick = () => {
     if (diceDisabled) return

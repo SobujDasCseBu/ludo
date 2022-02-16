@@ -6,5 +6,17 @@ const conn = mysql.createConnection({
   password: "",
   database: "ludo"
 });
+
+const connectDB = async () => {
+  return await new Promise((resolve, reject) => {
+    if (conn.state === 'disconnected') {
+      conn.connect(function (err) {
+        if (err) resolve({error: err})
+        resolve({status: 'connected'})
+      })
+    }
+    resolve({status: 'connected'})
+  })
+}
  
-export { conn } 
+export { conn, connectDB } 

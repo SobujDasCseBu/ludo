@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import jwt from 'jsonwebtoken'
-import { conn } from '../config/db.js'
+import { conn, connectDB } from '../config/db.js'
 
 const createJWTToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -8,18 +8,36 @@ const createJWTToken = (id) => {
   })
 }
 
+const authToken = asyncHandler(async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1]
+  const decoded = jwt.verify(token, process.env.JWT_SECRET)
+  console.log('auth decoded: ', decoded)
+  const connectionStatus = await connectDB()
+  console.log('auth connection: ', connectionStatus)
+  if (!decoded.id) {
+    res.status(401).json({code: 401, message: 'Invalid Token'})
+    throw new Error('Invalid Token')
+  }
+  let result = await new Promise((resolve, reject) => {
+    conn.query(`SELECT * FROM users WHERE id = '${decoded.id}'`, function (err, result, fields) {
+      if (err) resolve({error: err})
+      resolve(result)
+    })
+  }) 
+  console.log('auth result: ', result)
+  if (result.length > 0) {
+    res.status(200).json({code: 200, message: 'Token Validated Successfully'})
+  } else {
+    res.status(401).json({code: 401, message: 'Invalid User'})
+    throw new Error('Invalid User')
+  }
+  
+})
+
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-
-  await new Promise((resolve, reject) => {
-    if (conn.state === 'disconnected') {
-      conn.connect(function (err) {
-        if (err) resolve({error: err})
-        resolve({status: 'connected'})
-      })
-    }
-    resolve({status: 'connected'})
-  })
+  
+  const connectionStatus = await connectDB()
 
   let result = await new Promise((resolve, reject) => {
     conn.query(`SELECT * FROM users WHERE email = '${email}' && password = '${password}'`, function (err, result, fields) {
@@ -45,15 +63,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body
   console.log('register user body: ', req.body)
   
-  await new Promise((resolve, reject) => {
-    if (conn.state === 'disconnected') {
-      conn.connect(function (err) {
-        if (err) resolve({error: err})
-        resolve({status: 'connected'})
-      })
-    }
-    resolve({status: 'connected'})
-  })
+  const connectionStatus = await connectDB()
   
   let result = await new Promise((resolve, reject) => {
     conn.query(`SELECT * FROM users WHERE email = '${email}'`, function (err, result, fields) {
@@ -79,12 +89,15 @@ const registerUser = asyncHandler(async (req, res) => {
     })
   }) 
   console.log('insert result: ', result)
+  
+  const token = createJWTToken(id)
+  console.log('token: ', token)
   if (result.error) {
     res.status(400).json({code: 400, message: 'Someting wrong'})
   } else {
-    res.status(200).json({code: 200, message: 'User registered successfully'})
+    res.status(200).json({code: 200, message: 'User registered successfully', token})
   }
   
 })
 
-export {authUser, registerUser}
+export {authToken, authUser, registerUser}

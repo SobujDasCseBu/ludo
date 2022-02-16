@@ -1,10 +1,12 @@
 import React from 'react'
 import { useEffect, useRef } from 'react'
-import { Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 import '../assets/css/login.css'
+import axios from '../functions/axios';
 
 
 export default function SignIn() {
+  const navigate = useNavigate()
   const [email, setEmail] = React.useState('')
   const [pass, setPass] = React.useState('')
   const [emailReq, setEmailReq] = React.useState(false)
@@ -14,6 +16,20 @@ export default function SignIn() {
   useEffect(() => {
     inputref.current.focus()
   }, [])
+
+
+  const login = async () => {
+    const loginRes = await axios.post('auth/login', {
+      email,
+      password: pass
+    })
+    console.log('loginRes: ', loginRes)
+    if (loginRes?.data?.code === 200) {
+      localStorage.setItem('token', JSON.stringify({ token: loginRes.data.token }))
+      navigate('/main')
+    }
+  }
+
   return (
     <div className='login_body'>
       <div className='Container'>
@@ -50,7 +66,7 @@ export default function SignIn() {
             }}
           />
           <div className='AFPass'>Forgot Password?</div>
-          <div className='SButton'>Sign In</div>
+          <div className='SButton' onClick={login}>Sign In</div>
           <p className='p_tag'>Don't have an account?</p>
           <div className='HDescs'>
             <div className='CSpan'>

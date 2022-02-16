@@ -1,25 +1,27 @@
-import React, { Component } from "react";
-import SignUpForm from "./SignUpForm.js";
-const axios = require("axios");
-const FormValidators = require("./validate");
+import React, { Component } from 'react';
+import SignUpForm from './SignUpForm.js';
+import axios from '../functions/axios'
+import { createBrowserHistory } from 'history'
+const FormValidators = require('./validate');
 const validateSignUpForm = FormValidators.validateSignUpForm;
-const zxcvbn = require("zxcvbn");
+const zxcvbn = require('zxcvbn');
 
 class SignUpContainer extends Component {
+  history = createBrowserHistory({forceRefresh:true})
   constructor(props) {
     super(props);
 
     this.state = {
       errors: {},
       user: {
-        username: "",
-        email: "",
-        password: "",
-        pwconfirm: ""
+        username: '',
+        email: '',
+        password: '',
+        pwconfirm: ''
       },
-      btnTxt: "show",
-      type: "password",
-      score: "0"
+      btnTxt: 'show',
+      type: 'password',
+      score: '0'
     };
 
     this.pwMask = this.pwMask.bind(this);
@@ -48,10 +50,10 @@ class SignUpContainer extends Component {
       user
     });
 
-    if (event.target.value === "") {
+    if (event.target.value === '') {
       this.setState(state =>
         Object.assign({}, state, {
-          score: "null"
+          score: 'null'
         })
       );
     } else {
@@ -64,24 +66,14 @@ class SignUpContainer extends Component {
     }
   }
 
-  submitSignup(user) {
-    var params = { username: user.usr, password: user.pw, email: user.email };
-    axios
-      .post("https://ouramazingserver.com/api/signup/submit", params)
-      .then(res => {
-        if (res.data.success === true) {
-          localStorage.token = res.data.token;
-          localStorage.isAuthenticated = true;
-          window.location.reload();
-        } else {
-          this.setState({
-            errors: { message: res.data.message }
-          });
-        }
-      })
-      .catch(err => {
-        console.log("Sign up data submit error: ", err);
-      });
+  async submitSignup(user) {
+    var params = { name: user.usr, password: user.pw, email: user.email };
+    const res = await axios.post('users/register', params)
+    console.log('res: ', res)
+    if (res.data.token.length > 0) {
+      localStorage.setItem('token', JSON.stringify({ token: res.data.token }))
+      window.location.pathname = '/main'
+    }
   }
 
   validateForm(event) {
@@ -109,8 +101,8 @@ class SignUpContainer extends Component {
     event.preventDefault();
     this.setState(state =>
       Object.assign({}, state, {
-        type: this.state.type === "password" ? "input" : "password",
-        btnTxt: this.state.btnTxt === "show" ? "hide" : "show"
+        type: this.state.type === 'password' ? 'input' : 'password',
+        btnTxt: this.state.btnTxt === 'show' ? 'hide' : 'show'
       })
     );
   }

@@ -79,6 +79,9 @@ const SignUpForm = ({
           primary={true}
           type="submit"
           label="submit"
+          onClick={() => {
+            console.log('errors: ', errors)
+          }}
         />
       </form>
       <p>
